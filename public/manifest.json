@@ -1,0 +1,16 @@
+{
+  "name": "The Alchemist Path — Mind Dump",
+  "short_name": "Alchemist Path",
+  "description": "Turn mental lead into gold. Clear your mind and focus on what matters.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b1638",
+  "theme_color": "#0b1638",
+  "icons": [
+    { "src": "/logo-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/logo-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/favicon.ico", "sizes": "16x16 32x32 48x48", "type": "image/x-icon" }
+  ]
+}

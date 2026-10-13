@@ -1,0 +1,521 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* The Alchemist Path Design System - Native Mobile First */
+
+@layer base {
+  /* Cosmic navy + alchemical gold. One palette for light & dark. */
+  :root, .dark {
+    /* Safe areas for iPhone X+ (notch/home bar) */
+    --safe-area-inset-top: env(safe-area-inset-top, 0px);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-area-inset-left: env(safe-area-inset-left, 0px);
+    --safe-area-inset-right: env(safe-area-inset-right, 0px);
+
+    /* Night sky */
+    --background: 226 64% 9%;
+    --foreground: 40 38% 92%;
+
+    /* Midnight glass panels */
+    --card: 225 48% 14%;
+    --card-foreground: 40 38% 92%;
+    --popover: 225 50% 12%;
+    --popover-foreground: 40 38% 92%;
+
+    /* Alchemical gold */
+    --primary: 42 64% 60%;
+    --primary-foreground: 226 64% 10%;
+
+    --secondary: 224 40% 19%;
+    --secondary-foreground: 40 30% 88%;
+
+    --muted: 224 34% 20%;
+    --muted-foreground: 222 22% 72%;
+
+    /* Copper */
+    --accent: 27 58% 52%;
+    --accent-foreground: 40 38% 95%;
+
+    --destructive: 6 62% 55%;
+    --destructive-foreground: 40 38% 96%;
+
+    --border: 40 30% 32%;
+    --input: 224 34% 24%;
+    --ring: 42 64% 60%;
+
+    --radius: 1rem;
+
+    /* The seven metals of the path */
+    --metal-lead: 30 12% 56%;
+    --metal-iron: 215 14% 64%;
+    --metal-steel: 210 22% 74%;
+    --metal-copper: 25 62% 56%;
+    --metal-silver: 220 14% 84%;
+    --metal-gold: 44 72% 60%;
+    --metal-palladium: 40 18% 78%;
+
+    --zen-gradient:
+      radial-gradient(1px 1px at 12% 18%, hsl(45 80% 85% / 0.9) 50%, transparent 51%),
+      radial-gradient(1px 1px at 68% 8%, hsl(0 0% 100% / 0.7) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 84% 34%, hsl(45 80% 80% / 0.8) 50%, transparent 51%),
+      radial-gradient(1px 1px at 32% 62%, hsl(0 0% 100% / 0.6) 50%, transparent 51%),
+      radial-gradient(1px 1px at 52% 88%, hsl(45 80% 85% / 0.7) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 6% 78%, hsl(0 0% 100% / 0.5) 50%, transparent 51%),
+      radial-gradient(1px 1px at 92% 72%, hsl(45 80% 85% / 0.6) 50%, transparent 51%),
+      radial-gradient(1px 1px at 40% 30%, hsl(0 0% 100% / 0.5) 50%, transparent 51%),
+      radial-gradient(ellipse 80% 40% at 78% 22%, hsl(222 85% 45% / 0.35), transparent 70%),
+      radial-gradient(ellipse 60% 35% at 15% 88%, hsl(42 80% 50% / 0.12), transparent 70%),
+      linear-gradient(160deg, hsl(226 70% 13%) 0%, hsl(228 64% 8%) 55%, hsl(232 60% 6%) 100%);
+    --zen-shadow: 0 2px 10px -2px hsl(228 80% 3% / 0.6);
+    --zen-shadow-lg: 0 12px 32px -8px hsl(228 80% 3% / 0.7), 0 0 0 1px hsl(42 50% 55% / 0.12);
+    --zen-shadow-card: inset 0 1px 0 0 hsl(42 60% 70% / 0.08), 0 8px 24px -12px hsl(228 80% 3% / 0.8);
+    --gold-gradient: linear-gradient(135deg, hsl(44 78% 72%) 0%, hsl(40 66% 56%) 45%, hsl(34 60% 44%) 100%);
+    --gold-glow: 0 0 24px -6px hsl(42 80% 55% / 0.5);
+
+    /* Quadrants, mapped to metals: copper fire, gold, steel, lead */
+    --quadrant-q1: 12 68% 60%;
+    --quadrant-q2: 44 72% 58%;
+    --quadrant-q3: 208 48% 66%;
+    --quadrant-q4: 222 10% 60%;
+
+    /* Trigger tag colors */
+    --trigger-work: 215 55% 66%;
+    --trigger-personal: 280 40% 70%;
+    --trigger-health: 150 45% 56%;
+    --trigger-money: 44 72% 60%;
+    --trigger-relationships: 340 50% 68%;
+    --trigger-worries: 8 55% 64%;
+    --trigger-ideas: 195 60% 62%;
+
+    /* Wheel domain colors */
+    --wheel-physical: 200 50% 60%;
+    --wheel-career: 220 55% 66%;
+    --wheel-finances: 44 72% 60%;
+    --wheel-health: 150 45% 56%;
+    --wheel-family: 280 40% 70%;
+    --wheel-romance: 340 50% 68%;
+    --wheel-growth: 27 58% 60%;
+    --wheel-fun: 15 70% 64%;
+
+    /* Goal horizon badges */
+    --horizon-3m: 150 40% 56%;
+    --horizon-12m: 215 55% 66%;
+    --horizon-3-5y: 280 40% 70%;
+
+    /* Value category colors */
+    --value-achievement: 44 72% 60%;
+    --value-connection: 340 50% 68%;
+    --value-integrity: 215 55% 66%;
+    --value-freedom: 195 60% 62%;
+    --value-wellness: 150 45% 56%;
+    --value-contribution: 27 58% 60%;
+
+    --sidebar-background: 226 64% 9%;
+    --sidebar-foreground: 40 38% 92%;
+    --sidebar-primary: 42 64% 60%;
+    --sidebar-primary-foreground: 226 64% 10%;
+    --sidebar-accent: 224 40% 19%;
+    --sidebar-accent-foreground: 40 30% 88%;
+    --sidebar-border: 40 30% 32%;
+    --sidebar-ring: 42 64% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    overscroll-behavior: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  html, body {
+    overflow-x: hidden;
+    -webkit-touch-callout: none;
+    touch-action: pan-y;
+    height: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    overscroll-behavior-y: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2 {
+    @apply font-display tracking-wide;
+  }
+
+  #root {
+    height: 100%;
+  }
+
+  /* Prevent text selection on interactive elements */
+  button, [role="button"] {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* Mobile-native inputs - prevent zoom on focus iOS */
+  input, textarea, select {
+    font-size: 16px;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  /* Native-style focus */
+  input:focus, textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--primary) / 0.25);
+  }
+
+  button:focus-visible, [role="button"]:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+  }
+
+  /* Smooth scroll-into-view for focused inputs */
+  input:focus, textarea:focus, select:focus {
+    scroll-margin-bottom: 120px;
+  }
+}
+
+@layer components {
+  /* ====== App Shell — native mobile ====== */
+  .app-shell {
+    @apply h-full flex flex-col overflow-hidden;
+    background: var(--zen-gradient);
+  }
+
+  .app-content {
+    @apply flex-1 overflow-y-auto;
+    padding-bottom: calc(4.5rem + var(--safe-area-inset-bottom, 0px));
+  }
+
+  /* ====== Screen containers ====== */
+  .screen-container {
+    @apply w-full max-w-md mx-auto px-5 py-3 flex flex-col;
+    min-height: calc(100vh - 4.5rem);
+  }
+
+  .screen-container-scroll {
+    @apply w-full max-w-md mx-auto px-5 py-3 flex flex-col;
+  }
+
+  .screen-center {
+    @apply w-full max-w-md mx-auto px-5 flex flex-col;
+    min-height: calc(100vh - 4.5rem);
+  }
+
+  /* ====== Layout ====== */
+  .zen-container {
+    @apply w-full max-w-md mx-auto px-5 py-3;
+  }
+
+  /* ====== Cards - midnight glass ====== */
+  .zen-card {
+    @apply bg-card/80 rounded-2xl p-5 animate-fade-in border border-primary/15 backdrop-blur-md;
+    box-shadow: var(--zen-shadow-card);
+  }
+
+  /* iOS-style grouped list section */
+  .native-section {
+    @apply bg-card/80 rounded-2xl overflow-hidden border border-primary/10;
+    box-shadow: var(--zen-shadow-card);
+  }
+
+  .native-section-item {
+    @apply px-4 py-3.5 flex items-center justify-between;
+  }
+
+  .native-section-item + .native-section-item {
+    @apply border-t border-border/40;
+    margin-left: 1rem;
+    border-left: 0;
+  }
+
+  .native-section-header {
+    @apply font-display text-[11px] font-semibold text-primary/80 uppercase tracking-[0.2em] px-1 py-2;
+  }
+
+  /* ====== Inputs - Native style ====== */
+  .zen-input {
+    @apply w-full bg-secondary/60 border border-primary/20 rounded-xl px-4 py-3.5 text-foreground placeholder:text-muted-foreground/60 transition-all;
+  }
+
+  .zen-input:focus {
+    @apply border-primary/50;
+    box-shadow: 0 0 0 3px hsl(var(--primary) / 0.12);
+  }
+
+  /* ====== Buttons - Native feel ====== */
+  .zen-button-primary {
+    @apply w-full text-primary-foreground rounded-2xl py-4 font-semibold tracking-wide transition-all active:scale-[0.97] text-center flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100 hover:brightness-110;
+    background: var(--gold-gradient);
+    box-shadow: var(--gold-glow), inset 0 1px 0 hsl(45 90% 85% / 0.6);
+  }
+
+  .zen-button-secondary {
+    @apply w-full bg-secondary/80 text-secondary-foreground rounded-2xl py-3.5 font-medium transition-all active:scale-[0.97] border border-primary/20 hover:border-primary/40;
+  }
+
+  .zen-button-ghost {
+    @apply text-muted-foreground hover:text-foreground transition-colors py-2;
+  }
+
+  /* ====== Alchemist Path brand pieces ====== */
+  .gold-text {
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .brand-eyebrow {
+    @apply font-display text-[11px] tracking-[0.25em] uppercase text-primary/90;
+  }
+
+  .gold-divider {
+    @apply h-px w-full;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.6), transparent);
+  }
+
+  /* Bevelled metal plate, like the steps of the path */
+  .metal-plate {
+    @apply relative rounded-xl border backdrop-blur-md;
+    background: linear-gradient(180deg, hsl(224 30% 22% / 0.92), hsl(226 40% 13% / 0.92));
+    border-color: hsl(var(--primary) / 0.28);
+    box-shadow: inset 0 1px 0 hsl(45 60% 80% / 0.12), 0 10px 24px -14px hsl(228 80% 2% / 0.9);
+  }
+
+  .metal-medallion {
+    @apply rounded-full flex items-center justify-center border-2 shrink-0;
+    border-color: hsl(var(--primary) / 0.7);
+    background: radial-gradient(circle at 35% 30%, hsl(224 30% 30%), hsl(226 50% 10%));
+    box-shadow: 0 0 0 3px hsl(226 60% 8%), 0 0 18px -4px hsl(42 80% 55% / 0.5);
+  }
+
+  /* ====== Step Indicators ====== */
+  .step-indicator {
+    @apply w-2 h-2 rounded-full bg-muted transition-all;
+  }
+
+  .step-indicator-active {
+    @apply w-8 bg-primary;
+  }
+
+  /* ====== Tags ====== */
+  .trigger-tag {
+    @apply px-3 py-1.5 rounded-full text-sm font-medium transition-all cursor-pointer border border-primary/15 bg-secondary/40;
+  }
+
+  .trigger-tag-active {
+    @apply border-primary/70 bg-primary/15 text-foreground opacity-100;
+    box-shadow: 0 0 12px -4px hsl(var(--primary) / 0.6);
+  }
+
+  .trigger-tag-inactive {
+    @apply text-muted-foreground hover:text-foreground hover:border-primary/40;
+  }
+
+  /* ====== Quadrants ====== */
+  .quadrant-card {
+    @apply rounded-2xl p-4 transition-all min-h-[120px];
+  }
+
+  .quadrant-q1 {
+    @apply bg-quadrant-q1/10 border-l-4 border-quadrant-q1;
+  }
+
+  .quadrant-q2 {
+    @apply bg-quadrant-q2/10 border-l-4 border-quadrant-q2;
+  }
+
+  .quadrant-q3 {
+    @apply bg-quadrant-q3/10 border-l-4 border-quadrant-q3;
+  }
+
+  .quadrant-q4 {
+    @apply bg-quadrant-q4/10 border-l-4 border-quadrant-q4;
+  }
+
+  .task-item {
+    @apply bg-secondary/80 rounded-xl px-3 py-2.5 text-sm cursor-grab active:cursor-grabbing transition-all;
+    box-shadow: var(--zen-shadow-card);
+  }
+
+  /* ====== Safe Areas ====== */
+  .pt-safe {
+    padding-top: var(--safe-area-inset-top);
+  }
+
+  .pb-safe {
+    padding-bottom: var(--safe-area-inset-bottom);
+  }
+
+  .safe-area-pb {
+    padding-bottom: calc(var(--safe-area-inset-bottom) + 0.5rem);
+  }
+
+  /* ====== Scrolling - Native iOS ====== */
+  .scrollable {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+  }
+
+  /* ====== Touch Feedback ====== */
+  .haptic-button {
+    @apply transition-transform duration-100;
+  }
+
+  .haptic-button:active {
+    transform: scale(0.97);
+  }
+
+  .touch-feedback {
+    @apply transition-all duration-150 active:scale-[0.97] active:opacity-80;
+  }
+
+  /* ====== Page Transitions ====== */
+  .page-transition-forward {
+    animation: page-slide-forward 0.35s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+  }
+
+  .page-transition-back {
+    animation: page-slide-back 0.35s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+  }
+
+  .page-transition-none {
+    animation: page-fade 0.2s ease-out forwards;
+  }
+
+  /* ====== Bottom Sheet ====== */
+  .bottom-sheet-overlay {
+    @apply fixed inset-0 z-50;
+    background: hsl(228 70% 3% / 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    animation: overlay-in 0.25s ease-out;
+  }
+
+  .bottom-sheet {
+    @apply fixed bottom-0 left-0 right-0 z-50 bg-popover rounded-t-3xl border-t border-primary/30 max-w-lg mx-auto;
+    box-shadow: 0 -8px 32px hsl(228 80% 2% / 0.6);
+    animation: sheet-slide-up 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
+    max-height: 85vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .bottom-sheet-handle {
+    @apply w-9 h-1 rounded-full bg-primary/30 mx-auto mt-2 mb-1;
+  }
+
+  /* ====== Native Toast - Top banner ====== */
+  [data-sonner-toaster] {
+    top: var(--safe-area-inset-top, 0px) !important;
+    bottom: auto !important;
+  }
+
+  [data-sonner-toast] {
+    @apply rounded-2xl;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  /* ====== Skeleton Loading ====== */
+  .skeleton-card {
+    @apply bg-muted/60 rounded-2xl animate-pulse;
+  }
+
+  /* ====== Pull to Refresh ====== */
+  .pull-indicator {
+    @apply flex items-center justify-center;
+    transition: transform 0.2s ease;
+  }
+
+  .pull-indicator.pulling {
+    transform: rotate(180deg);
+  }
+}
+
+/* ====== Keyframes ====== */
+@keyframes page-slide-forward {
+  from {
+    opacity: 0;
+    transform: translateX(30%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes page-slide-back {
+  from {
+    opacity: 0;
+    transform: translateX(-30%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes page-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes sheet-slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes pull-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes thought-in {
+  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes sparkle-burst {
+  0% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: scale(1.8) rotate(60deg); }
+}
+
+@keyframes card-out {
+  to { opacity: 0; transform: translateY(-16px) scale(0.96); }
+}
+
+.animate-thought-in { animation: thought-in 0.35s ease-out both; }
+.animate-sparkle { animation: sparkle-burst 0.9s ease-out forwards; }
+.animate-card-out { animation: card-out 0.25s ease-in forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,13 @@
+project_id = "rcbrqsoulyhwhqbgxtbj"
+
+[functions.ai-classify-items]
+verify_jwt = false
+
+[functions.ai-split-text]
+verify_jwt = false
+
+[functions.ai-suggest-goals]
+verify_jwt = false
+
+[functions.ai-pareto-focus]
+verify_jwt = false
