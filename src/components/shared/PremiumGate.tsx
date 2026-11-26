@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { useApp } from '@/context/AppContext';
+import { useAppAccess } from '@/hooks/useAppAccess';
 import { Lock, Sparkles } from 'lucide-react';
 import { ZenButton } from '@/components/ui/ZenButton';
 
@@ -17,7 +18,8 @@ const FEATURE_NAMES: Record<string, string> = {
 
 export function PremiumGate({ children, feature, preview = false }: PremiumGateProps) {
   const { user, setStep } = useApp();
-  const isPaid = user?.paymentStatus === 'paid';
+  const { hasAccess } = useAppAccess();
+  const isPaid = hasAccess;
 
   if (isPaid) {
     return <>{children}</>;
@@ -40,10 +42,10 @@ export function PremiumGate({ children, feature, preview = false }: PremiumGateP
           <Lock className="w-8 h-8 text-primary" />
         </div>
         <h3 className="text-lg font-semibold text-foreground mb-2">
-          {FEATURE_NAMES[feature]} is part of the Self and Time Management pack
+          {FEATURE_NAMES[feature]} is part of the Mind Dump app
         </h3>
         <p className="text-sm text-muted-foreground mb-6 max-w-xs">
-          One-time €4.44 unlocks the full pack — lifetime access.
+          One-time €3.33 unlocks the app, or get it with the €5.55 Complete System.
         </p>
         <ZenButton onClick={() => setStep('premium-overview')} className="max-w-xs">
           <Sparkles className="w-4 h-4 mr-2" />
