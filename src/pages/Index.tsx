@@ -1,5 +1,7 @@
 import { AppProvider, useApp } from '@/context/AppContext';
 import { useAuth } from '@/hooks/useAuth';
+import { useAppAccess } from '@/hooks/useAppAccess';
+import { AccessLocked } from '@/components/paywall/AccessLocked';
 import { usePageTransition } from '@/hooks/usePageTransition';
 import { useEffect, useRef, useState } from 'react';
 import { OnboardingWelcome } from '@/components/onboarding/OnboardingWelcome';
@@ -45,7 +47,8 @@ const ONBOARDING_STEPS = [
 
 function AppContent() {
   const { currentStep, setStep } = useApp();
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, loading, signOut } = useAuth();
+  const { hasAccess, checking, refresh } = useAppAccess();
   const { recordTransition, getTransitionClass } = usePageTransition();
   const prevStepRef = useRef(currentStep);
   const [transitionKey, setTransitionKey] = useState(0);
@@ -61,18 +64,23 @@ function AppContent() {
 
   // Redirect authenticated users away from onboarding
   useEffect(() => {
-    if (!loading && isAuthenticated && ONBOARDING_STEPS.includes(currentStep)) {
+    if (!loading && isAuthenticated && (ONBOARDING_STEPS.includes(currentStep) || currentStep === 'save-progress')) {
       setStep('dashboard');
     }
   }, [loading, isAuthenticated, currentStep, setStep]);
 
-  if (loading) {
+  if (loading || (isAuthenticated && checking)) {
     return (
       <div className="h-full flex flex-col items-center justify-center gap-5 bg-zen-gradient">
         <AlchemistBadge className="w-28 h-28 animate-breathe shadow-[0_0_30px_-6px_hsl(var(--primary)/0.6)]" />
         <Loader2 className="w-6 h-6 animate-spin text-primary" />
       </div>
     );
+  }
+
+  // Signed in but no verified purchase: nothing in the app opens.
+  if (isAuthenticated && !hasAccess) {
+    return <AccessLocked onRecheck={refresh} onSignOut={() => { signOut(); }} />;
   }
 
   const renderStep = () => {
