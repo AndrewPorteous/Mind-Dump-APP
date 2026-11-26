@@ -1,4 +1,5 @@
 import { useApp } from '@/context/AppContext';
+import { useAppAccess } from '@/hooks/useAppAccess';
 import { ZenButton } from '@/components/ui/ZenButton';
 import { MiniWheel } from './MiniWheel';
 import { 
@@ -44,7 +45,7 @@ export function Dashboard() {
   const scrollRef = useRef<HTMLDivElement>(null);
   
   const activeItems = getActiveItems();
-  const isPaid = user?.paymentStatus === 'paid';
+  const { hasAccess: isPaid } = useAppAccess();
   
   const today = format(new Date(), 'yyyy-MM-dd');
   const todaysSaversProgress = getSaversProgress(today);
@@ -232,7 +233,7 @@ export function Dashboard() {
             style={{ boxShadow: '0 4px 16px -4px hsl(35 80% 50% / 0.4)' }}
           >
             <Sparkles className="w-5 h-5" />
-            Unlock Premium · €4.44
+            Unlock Premium · €3.33
           </button>
         </div>
       )}
