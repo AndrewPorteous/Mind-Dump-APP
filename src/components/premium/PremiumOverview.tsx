@@ -76,7 +76,7 @@ export function PremiumOverview() {
           Self and Time Management
         </h1>
         <p className="text-sm text-muted-foreground">
-          The full pack — one-time €4.44, lifetime access.
+          The full pack — one-time €3.33, lifetime access.
         </p>
       </div>
 
@@ -134,7 +134,7 @@ export function PremiumOverview() {
 
       {/* Price card */}
       <div className="bg-primary/5 border border-primary/20 rounded-2xl p-5 text-center mb-6 animate-slide-up" style={{ animationDelay: '160ms' }}>
-        <div className="text-4xl font-bold text-foreground mb-1">€4.44</div>
+        <div className="text-4xl font-bold text-foreground mb-1">€3.33</div>
         <p className="text-sm text-muted-foreground">One-time · Lifetime access</p>
       </div>
 
@@ -142,7 +142,7 @@ export function PremiumOverview() {
       <div className="pb-8 space-y-2">
         <ZenButton onClick={() => setStep('paywall')}>
           <Sparkles className="w-4 h-4 mr-2" />
-          Unlock for €4.44
+          Unlock for €3.33
         </ZenButton>
         <button
           onClick={() => setStep('dashboard')}
