@@ -1,4 +1,5 @@
 import { useApp } from '@/context/AppContext';
+import { useAppAccess, trialTimeLeft } from '@/hooks/useAppAccess';
 import { useAuth } from '@/hooks/useAuth';
 import { Crown, AlertTriangle, Trash2, LogOut } from 'lucide-react';
 import {
@@ -16,7 +17,8 @@ import {
 export function AccountSection() {
   const { user, setStep, resetApp } = useApp();
   const { user: authUser, signOut } = useAuth();
-  const isPaid = user?.paymentStatus === 'paid';
+  const { hasAccess, reason: accessReason, trialEndsAt } = useAppAccess();
+  const isPaid = hasAccess && accessReason !== 'trial';
 
   const displayName = authUser?.user_metadata?.first_name || user?.firstName || '';
   const displayEmail = authUser?.email || user?.email || '';
@@ -43,10 +45,10 @@ export function AccountSection() {
             </div>
             <div>
               <h3 className="font-medium text-foreground">
-                {isPaid ? 'Full Access' : 'Free Version'}
+                {isPaid ? 'Full Access' : `Free trial`}
               </h3>
               <p className="text-sm text-muted-foreground">
-                {isPaid ? 'All features unlocked' : 'Limited features'}
+                {isPaid ? 'All features unlocked' : `All features unlocked · ${trialTimeLeft(trialEndsAt)}`}
               </p>
             </div>
           </div>
@@ -55,7 +57,7 @@ export function AccountSection() {
               onClick={() => setStep('paywall')}
               className="px-4 py-2 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90 transition-colors"
             >
-              Upgrade
+              Keep access
             </button>
           )}
         </div>
