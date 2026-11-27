@@ -1,4 +1,5 @@
 import { useApp } from '@/context/AppContext';
+import { useAppAccess } from '@/hooks/useAppAccess';
 import { useAuth } from '@/hooks/useAuth';
 import { Crown, AlertTriangle, Trash2, LogOut } from 'lucide-react';
 import {
@@ -16,7 +17,8 @@ import {
 export function AccountSection() {
   const { user, setStep, resetApp } = useApp();
   const { user: authUser, signOut } = useAuth();
-  const isPaid = user?.paymentStatus === 'paid';
+  const { hasAccess } = useAppAccess();
+  const isPaid = hasAccess;
 
   const displayName = authUser?.user_metadata?.first_name || user?.firstName || '';
   const displayEmail = authUser?.email || user?.email || '';
