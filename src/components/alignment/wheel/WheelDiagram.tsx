@@ -70,8 +70,8 @@ export function WheelDiagram({
 
   return (
     <svg
-      viewBox={`0 0 ${size} ${size}`}
-      className={cn('w-full h-auto max-w-[320px] mx-auto', className)}
+      viewBox={`${showLabels ? -60 : 0} 0 ${size + (showLabels ? 120 : 0)} ${size}`}
+      className={cn('w-full h-auto max-w-[420px] mx-auto', className)}
     >
       {/* Background segments (full 10/10) */}
       {WHEEL_DOMAINS.map((domain, index) => {
@@ -105,7 +105,7 @@ export function WheelDiagram({
           <text
             x={cx + 8}
             y={cy - maxRadius * 0.5 + 4}
-            fontSize={10}
+            fontSize={11}
             fill="hsl(var(--muted-foreground))"
             className="select-none"
           >
@@ -114,7 +114,7 @@ export function WheelDiagram({
           <text
             x={cx + 8}
             y={cy - maxRadius + 4}
-            fontSize={10}
+            fontSize={11}
             fill="hsl(var(--muted-foreground))"
             className="select-none"
           >
@@ -185,13 +185,13 @@ export function WheelDiagram({
               <text
                 x={pos.x}
                 y={pos.y - 6}
-                fontSize={10}
+                fontSize={11}
                 fontWeight={500}
                 fill="hsl(var(--foreground))"
                 textAnchor={textAnchor}
                 className="select-none"
               >
-                {domain.emoji} {domain.label}
+                {domain.label}
               </text>
               <text
                 x={pos.x}
