@@ -147,6 +147,15 @@ export function useAppState() {
           fetchSaversData(),
         ]);
 
+        // Fresh account (nothing in the cloud yet): upload what was entered before signup,
+        // so items sorted as a guest are not lost. Never done when the cloud already has data,
+        // so items deleted on another device are not brought back.
+        if (cloudItems.length === 0 && cloudTasks.length === 0) {
+          const local = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+          (local.mindDumpItems || []).forEach((i: MindDumpItem) => saveMindDumpItem({ ...i, createdAt: new Date(i.createdAt) }));
+          (local.tasks || []).forEach((t: Task) => saveTask({ ...t, createdAt: new Date(t.createdAt) }));
+        }
+
         setState(prev => ({
           ...prev,
           mindDumpItems: cloudItems.length > 0 ? cloudItems : prev.mindDumpItems,
