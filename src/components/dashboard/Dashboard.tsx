@@ -1,4 +1,5 @@
 import { useApp } from '@/context/AppContext';
+import { useAppAccess, trialTimeLeft } from '@/hooks/useAppAccess';
 import { ZenButton } from '@/components/ui/ZenButton';
 import { MiniWheel } from './MiniWheel';
 import { 
@@ -44,7 +45,8 @@ export function Dashboard() {
   const scrollRef = useRef<HTMLDivElement>(null);
   
   const activeItems = getActiveItems();
-  const isPaid = user?.paymentStatus === 'paid';
+  const { hasAccess: isPaid, reason: accessReason, trialEndsAt, checking: accessChecking } = useAppAccess();
+  const onTrial = accessReason === 'trial';
   
   const today = format(new Date(), 'yyyy-MM-dd');
   const todaysSaversProgress = getSaversProgress(today);
@@ -107,7 +109,7 @@ export function Dashboard() {
               Hey, {user?.firstName || 'there'} 👋
             </h1>
             <p className="text-sm text-muted-foreground mt-0.5">
-              {isPaid ? '✨ Premium' : 'Free plan'}
+              {accessChecking ? '\u00a0' : onTrial ? `Free trial · ${trialTimeLeft(trialEndsAt)}` : accessReason === 'owner' ? 'Full access' : 'Premium'}
             </p>
           </div>
           <button
@@ -224,7 +226,7 @@ export function Dashboard() {
       </div>
 
       {/* Upgrade CTA */}
-      {!isPaid && (
+      {onTrial && (
         <div className="pt-4 animate-slide-up" style={{ animationDelay: '200ms' }}>
           <button
             onClick={() => navigateTo('premium-overview')}
@@ -232,7 +234,7 @@ export function Dashboard() {
             style={{ boxShadow: '0 4px 16px -4px hsl(35 80% 50% / 0.4)' }}
           >
             <Sparkles className="w-5 h-5" />
-            Unlock Premium · €4.44
+            Keep access · €3.33
           </button>
         </div>
       )}
