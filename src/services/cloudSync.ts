@@ -333,10 +333,10 @@ export async function saveAlignmentData(alignmentData: {
   } else {
     const { error } = await supabase
       .from('alignment_data')
-      .insert({
+      .upsert({
         user_id: userId,
         ...updateFields,
-      });
+      }, { onConflict: 'user_id' });
     if (error) console.error('Error inserting alignment data:', error);
   }
 }
