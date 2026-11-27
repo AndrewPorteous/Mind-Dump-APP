@@ -10,9 +10,13 @@ import { FocusTimer } from './FocusTimer';
 import { useHaptic } from '@/hooks/useHaptic';
 import { toast } from 'sonner';
 import {
-  Mic, MicOff, ArrowRight, ArrowLeft, Plus, Shuffle, Pencil, Trash2, Check, X, HelpCircle, Lightbulb,
+  Mic, MicOff, ArrowRight, ArrowLeft, Plus, Shuffle, Pencil, Trash2, Check, X, HelpCircle, Lightbulb as IdeaIcon,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Briefcase, Home, Heart, Wallet, MessageCircle, Cloud, Lightbulb, Target, FolderOpen } from 'lucide-react';
+const TRIGGER_ICONS: Record<string, any> = { work: Briefcase, personal: Home, health: Heart, money: Wallet, relationships: MessageCircle, worries: Cloud, ideas: IdeaIcon, goals: Target, projects: FolderOpen };
+const TriggerIcon = ({ id }: { id: string }) => { const I = TRIGGER_ICONS[id] || FolderOpen; return <I className="inline h-3.5 w-3.5 -mt-0.5" aria-hidden />; };
+
 
 // Web Speech API types
 interface SpeechRecognitionEvent {
@@ -308,7 +312,7 @@ export function MindDumpInput() {
                 aria-pressed={active}
                 className={cn('trigger-tag', active ? 'trigger-tag-active' : 'trigger-tag-inactive')}
               >
-                {trigger.emoji} {trigger.label}
+                <TriggerIcon id={trigger.id} /> {trigger.label}
               </button>
             );
           })}
