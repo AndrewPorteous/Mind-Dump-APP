@@ -49,7 +49,6 @@ export function useAuth() {
           user_id: authUser.id,
           email: authUser.email,
           first_name: authUser.user_metadata?.first_name || '',
-          payment_status: 'free',
         });
       }
     } catch (error) {
