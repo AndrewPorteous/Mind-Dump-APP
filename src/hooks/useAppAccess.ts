@@ -75,5 +75,39 @@ export function useAppAccess() {
     refresh();
   }, [authLoading, refresh]);
 
+  // Automatic purchase check: for a signed-in user who is not owner/paid, ask the server to look for a
+  // qualifying purchase on sign-in/load and whenever the tab becomes visible again (e.g. back from checkout).
+  // The server rate-limits (60s) and takes the email from the session. Failures are silent: the trial keeps working.
+  const [lastAuto, setLastAuto] = useState(0);
+  const autoSync = useCallback(async () => {
+    if (!user) return;
+    if (Date.now() - lastAuto < 60000) return;
+    setLastAuto(Date.now());
+    try {
+      const { data } = await supabase.functions.invoke('sync-entitlement', { body: {} });
+      if (data?.ok && data.access) await refresh();
+    } catch {
+      /* ignore: trial or lock state is unchanged */
+    }
+  }, [user, lastAuto, refresh]);
+
+  useEffect(() => {
+    if (authLoading || checking || !user) return;
+    if (reason === 'owner' || reason === 'paid') return;
+    autoSync();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authLoading, checking, user?.id, reason]);
+
+  useEffect(() => {
+    if (!user || reason === 'owner' || reason === 'paid') return;
+    const onVisible = () => { if (document.visibilityState === 'visible') autoSync(); };
+    document.addEventListener('visibilitychange', onVisible);
+    window.addEventListener('focus', onVisible);
+    return () => {
+      document.removeEventListener('visibilitychange', onVisible);
+      window.removeEventListener('focus', onVisible);
+    };
+  }, [user, reason, autoSync]);
+
   return { hasAccess, reason, trialEndsAt, checking: authLoading || checking, refresh, restore, restoring, restoreMessage };
 }
