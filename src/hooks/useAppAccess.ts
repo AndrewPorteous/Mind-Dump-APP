@@ -1,0 +1,50 @@
+import { useEffect, useState, useCallback } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
+
+/**
+ * Server-verified access. Calls the has_app_access() database function,
+ * which reads app_entitlements for the signed-in user. The client never
+ * decides access on its own and never writes entitlement or payment data.
+ */
+export function useAppAccess() {
+  const { user, loading: authLoading } = useAuth();
+  const [hasAccess, setHasAccess] = useState(false);
+  const [checking, setChecking] = useState(true);
+
+  const refresh = useCallback(async () => {
+    if (!user) {
+      setHasAccess(false);
+      setChecking(false);
+      return;
+    }
+    setChecking(true);
+    // has_app_access is added by the entitlements migration; regenerate
+    // integrations/supabase/types.ts after it runs to drop this cast.
+    const { data, error } = await (supabase as any).rpc('has_app_access');
+    setHasAccess(!error && data === true);
+    setChecking(false);
+  }, [user]);
+
+  // Restore purchase: asks the server to re-verify with the payment system, then re-reads access.
+  // The server takes the email from the signed-in session, never from the client.
+  const [restoring, setRestoring] = useState(false);
+  const [restoreMessage, setRestoreMessage] = useState<string | null>(null);
+  const restore = useCallback(async () => {
+    setRestoring(true);
+    setRestoreMessage(null);
+    const { data, error } = await supabase.functions.invoke('sync-entitlement', { body: {} });
+    await refresh();
+    if (error || !data?.ok) setRestoreMessage('We could not check right now. Please try again in a minute.');
+    else if (!data.access && data.definitive === false) setRestoreMessage('We could not fully verify your purchase yet. Please try again in a few minutes.');
+    else if (!data.access) setRestoreMessage('No purchase found for this email yet. Use the same email you sign in with.');
+    setRestoring(false);
+  }, [refresh]);
+
+  useEffect(() => {
+    if (authLoading) return;
+    refresh();
+  }, [authLoading, refresh]);
+
+  return { hasAccess, checking: authLoading || checking, refresh, restore, restoring, restoreMessage };
+}
