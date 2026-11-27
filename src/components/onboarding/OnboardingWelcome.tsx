@@ -117,7 +117,7 @@ export function OnboardingWelcome({ returning = false }: OnboardingWelcomeProps)
           </button>
 
           <p className="text-center text-xs text-muted-foreground/70">
-            ~20 min first setup · free forever
+            ~20 min first setup · 48-hour free trial
           </p>
         </div>
       )}
