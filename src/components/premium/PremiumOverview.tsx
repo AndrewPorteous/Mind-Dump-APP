@@ -13,6 +13,7 @@ import {
   Sunrise,
   Database,
 } from 'lucide-react';
+import { MIND_DUMP_CHECKOUT_URL } from '@/lib/checkout';
 import { AlchemistBadge } from '@/components/ui/Logo';
 
 interface FeatureItem {
@@ -73,17 +74,17 @@ export function PremiumOverview() {
       <div className="text-center pb-6 animate-fade-in">
         <AlchemistBadge className="w-20 h-20 mx-auto mb-4 shadow-[0_0_20px_-4px_hsl(var(--primary)/0.6)]" />
         <h1 className="text-2xl font-semibold text-foreground mb-1">
-          Self and Time Management
+          Keep Mental Clarity
         </h1>
         <p className="text-sm text-muted-foreground">
-          The full pack — one-time €4.44, lifetime access.
+          Everything stays yours with one payment of €3.33, lifetime access.
         </p>
       </div>
 
       {/* Free section */}
       <section className="pb-5 animate-slide-up">
         <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
-          Always free
+          Included in your trial
         </p>
         <div className="bg-card rounded-2xl shadow-zen p-4 space-y-3">
           {FREE_FEATURES.map((f) => (
@@ -103,7 +104,7 @@ export function PremiumOverview() {
       {/* Premium */}
       <section className="pb-5 animate-slide-up" style={{ animationDelay: '80ms' }}>
         <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
-          You unlock
+          Also included
         </p>
         <div className="space-y-3">
           {PREMIUM_GROUPS.map((group) => (
@@ -134,15 +135,15 @@ export function PremiumOverview() {
 
       {/* Price card */}
       <div className="bg-primary/5 border border-primary/20 rounded-2xl p-5 text-center mb-6 animate-slide-up" style={{ animationDelay: '160ms' }}>
-        <div className="text-4xl font-bold text-foreground mb-1">€4.44</div>
+        <div className="text-4xl font-bold text-foreground mb-1">€3.33</div>
         <p className="text-sm text-muted-foreground">One-time · Lifetime access</p>
       </div>
 
       {/* Actions */}
       <div className="pb-8 space-y-2">
-        <ZenButton onClick={() => setStep('paywall')}>
+        <ZenButton onClick={() => { if (MIND_DUMP_CHECKOUT_URL) window.open(MIND_DUMP_CHECKOUT_URL, '_blank', 'noopener'); }}>
           <Sparkles className="w-4 h-4 mr-2" />
-          Unlock for €4.44
+          Unlock for €3.33
         </ZenButton>
         <button
           onClick={() => setStep('dashboard')}

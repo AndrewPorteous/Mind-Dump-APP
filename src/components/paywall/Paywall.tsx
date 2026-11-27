@@ -2,6 +2,7 @@ import { useApp } from '@/context/AppContext';
 import { ZenButton } from '@/components/ui/ZenButton';
 import { Check, Brain, Target, Calendar, TrendingUp } from 'lucide-react';
 import { AlchemistBadge } from '@/components/ui/Logo';
+import { MIND_DUMP_CHECKOUT_URL } from '@/lib/checkout';
 
 export function Paywall() {
   const { setStep, setUser, user } = useApp();
@@ -14,10 +15,9 @@ export function Paywall() {
   ];
 
   const handleUnlock = async () => {
-    // Placeholder for Stripe integration
-    // For now, simulate successful payment
-    setUser({ ...user, paymentStatus: 'paid' });
-    setStep('dashboard');
+    // Access is granted only by the server after a verified purchase.
+    // Send the buyer to checkout; never mark the user as paid on the client.
+    if (MIND_DUMP_CHECKOUT_URL) window.open(MIND_DUMP_CHECKOUT_URL, '_blank', 'noopener');
   };
 
   const handleSkip = () => {
@@ -58,7 +58,7 @@ export function Paywall() {
         {/* Pricing */}
         <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 text-center animate-slide-up" style={{ animationDelay: '200ms' }}>
           <div className="flex items-baseline justify-center gap-1 mb-2">
-            <span className="text-4xl font-bold text-foreground">€4.44</span>
+            <span className="text-4xl font-bold text-foreground">€3.33</span>
           </div>
           <p className="text-sm text-muted-foreground mb-1">
             One-time payment
@@ -76,7 +76,7 @@ export function Paywall() {
           </span>
           <span className="flex items-center gap-1">
             <Check className="w-4 h-4 text-primary" />
-            30-day refund
+            Use your sign-in email
           </span>
         </div>
       </div>
@@ -84,14 +84,14 @@ export function Paywall() {
       {/* Actions */}
       <div className="pb-8 space-y-3 animate-slide-up" style={{ animationDelay: '300ms' }}>
         <ZenButton onClick={handleUnlock}>
-          Unlock for €4.44
+          Unlock for €3.33
         </ZenButton>
         
         <button
           onClick={handleSkip}
           className="zen-button-ghost w-full text-sm"
         >
-          Continue with free version
+          Back to the app
         </button>
       </div>
     </div>
